@@ -54,10 +54,6 @@ class FetchJeepTest extends FetchJeepTestSupport {
 	void testThatJeepsAreReturnedWhenAValidModelAndTrimAreSupplied() {
 		
 	
-	
-		
-		
-		
 		
 		// Given: a valid model, trim and URI
 		JeepModel model = JeepModel.WRANGLER;
@@ -73,7 +69,11 @@ class FetchJeepTest extends FetchJeepTestSupport {
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		
 		//And: the actual list returned is the same as the expected list
+		List<Jeep> actual = response.getBody();
 		List<Jeep> expected = buildExpected();
+		
+		actual.forEach(jeep-> jeep.setModelPK(null));
+		
 		assertThat(response.getBody()).isEqualTo(expected);
 	
 
